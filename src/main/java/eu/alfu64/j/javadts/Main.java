@@ -38,7 +38,7 @@ public class Main {
         StringBuilder result = new StringBuilder();
 
         result.append("interface ").append(clazz.getSimpleName()).append(" {\n");
-        HashMap<String,String> importsMap=new HashMap<>()
+        HashMap<String,String> importsMap=new HashMap<>();
         try{
             for (Field field : clazz.getDeclaredFields()) {
                 if (!Modifier.isPrivate(field.getModifiers())) {
