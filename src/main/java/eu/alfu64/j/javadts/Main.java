@@ -76,7 +76,7 @@ public class Main {
 
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     for (int i = 0; i < parameterTypes.length; i++) {
-                        importsMap.put(parameterTypes[i].getCanonicalName(),"");
+                        importsMap.put(parameterTypes[i].getCanonicalName(),parameterTypes[i].getSimpleName());
                         result.append("param")
                                 .append(i)
                                 .append(": ")
@@ -96,7 +96,7 @@ public class Main {
         result.append("}\n");
         StringBuilder imports = new StringBuilder();
         for(String key: importsMap.keySet()){
-            imports.append("import ")
+            imports.append("var  ")
                     .append(key)
                     .append(";");
         }
