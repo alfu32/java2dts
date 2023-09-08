@@ -41,7 +41,7 @@ public class FqnInfo{
         return pathTokens;
     }
     public String getPath(){
-        return String.join("/",pathTokens);
+        return String.join("/",pathTokens).replaceAll("\\[\\]","");
     }
     public String getSimpleTypeName(){
         return simpleTypeName;
@@ -57,7 +57,7 @@ public class FqnInfo{
     }
     public String getPathToRoot(){
         if(parentTokens.length==0)return ".";
-        return String.join("/", Arrays.stream(parentTokens).map(r -> "..").collect(Collectors.toList())).substring(1);
+        return String.join("/", Arrays.stream(parentTokens).map(r -> "..").collect(Collectors.toList()));
     }
     public String getParentPath(){
         if(parentTokens.length==0)return ".";

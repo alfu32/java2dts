@@ -21,8 +21,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class Main {
-
-
     public static void main(String[] args) throws IOException {
         final List<URL> urls = new ArrayList<>();
 
@@ -62,9 +60,9 @@ public class Main {
                         !clazz.getPackage().getName().startsWith("com.myapp")) {
                 String tsInterface = generateTypeScriptInterface(clazz);
 
-                final String dirname="java-types/" + classFqnInfo.getParentFqnInfo().getParentFqnInfo().getParentPath();
+                final String dirname="java-types/" + classFqnInfo.getParentPath();
                 new File(dirname).mkdirs();
-                File outputFile = new File("java-types/" + classFqnInfo.getParentFqnInfo().getParentPath() + ".d.ts");
+                File outputFile = new File("java-types/" + classFqnInfo.getPath() + ".d.ts");
                 Files.write(Paths.get(outputFile.toURI()), tsInterface.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             }
         }
@@ -142,7 +140,7 @@ public class Main {
                 .replaceAll("[a-zA-Z0-9_]+","..");
         pathToRoot=pathToRoot.length()>2?pathToRoot.substring(3):pathToRoot;
         imports.append("/* generated class ").append(clazz.getSimpleName()).append(" */\n");
-        imports.append("import {Java,Class} from '")
+        imports.append("import {Java} from '")
                 .append(classFqnInfo.getParentFqnInfo().getPathToRoot())
                 .append("/general.d';\n");
         //imports.append("declare var Java={type:(fqn:string):Class => { return {}}}\n");
@@ -161,7 +159,7 @@ public class Main {
                     imports.append("import {")
                             .append(fqnInfo.getSimpleTypeNameNoArray())
                             .append("} from '")
-                            .append(classFqnInfo.getParentFqnInfo().getPathToRoot()+"/"+fqnInfo.getParentPath() + ".d';\n");
+                            .append(classFqnInfo.getParentFqnInfo().getPathToRoot()+"/"+fqnInfo.getPath() + ".d';\n");
                 }
             }
         }
